@@ -12,7 +12,7 @@ class Model(ABC):
     _test_data_: np.ndarray
     _test_labels: np.ndarray
     
-    def __init__(self, data, labels, num_of_hidden_layers, output_size, activation_type, task, learning_rate, optimizer, iterations, print_range, test_data, test_labels):
+    def __init__(self, data, labels, initialize_parameters_method, num_of_hidden_layers, output_size, activation_type, task, learning_rate, optimizer, iterations, print_range, test_data, test_labels):
         self._iterations_ = iterations
         self._print_range_ = print_range
         self._data_ = data
@@ -26,7 +26,8 @@ class Model(ABC):
             output_size,
             activation_type,
             task,
-            learning_rate
+            learning_rate,
+            initialize_parameters_method
         )
         
     @abstractmethod

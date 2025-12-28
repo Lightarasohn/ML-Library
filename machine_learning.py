@@ -10,8 +10,9 @@ class Machine_Learning:
     _activation_type_: str
     _task_: str
     _learning_rate_: np.float64
+    _initialize_parameters_method_: str
     
-    def __init__(self, num_of_hidden_layers, input_size, output_size, activation_type, task, learning_rate):
+    def __init__(self, num_of_hidden_layers, input_size, output_size, activation_type, task, learning_rate, initialize_parameters_method):
         self._num_of_hidden_layers_ = num_of_hidden_layers
         self._input_size_ = input_size
         self._output_size_ = output_size
@@ -20,6 +21,7 @@ class Machine_Learning:
         self._activation_type_ = activation_type
         self._task_ = task
         self._learning_rate_ = learning_rate
+        self._initialize_parameters_method_ = initialize_parameters_method
     
     def initialize_parameters_with_classic_method(self):
         Nhidden = (self._input_size_ + self._output_size_) * 2 / 3
@@ -47,7 +49,22 @@ class Machine_Learning:
         Nhidden = (4 * self._input_size_ * self._input_size_ + 3) / (self._input_size_ * self._input_size_ - 8)
         Nhidden = int(Nhidden)
         self.initialize_parameters(Nhidden)
-        
+    
+    def select_initialize_parameters_method(self):
+        if(self._initialize_parameters_method_.lower() == "classic_method"):
+            self.initialize_parameters_with_classic_method()
+        elif(self._initialize_parameters_method_.lower() == "li_chow_and_yu_method"):
+            self.initialize_parameters_with_li_chow_and_yu_method()
+        elif(self._initialize_parameters_method_.lower() == "shibata_and_ikeda_method"):
+            self.initialize_parameters_with_shibata_and_ikeda_method()
+        elif(self._initialize_parameters_method_.lower() == "tamura_and_tateishi_method"):
+            self.initialize_parameters_with_tamura_and_tateishi_method()
+        elif(self._initialize_parameters_method_.lower() == "sheela_and_deepa_method"):
+            self.initialize_parameters_with_sheela_and_deepa_method()
+        else:
+            print(f"Warning: No initialize parameter named {self._initialize_parameters_method_}\nUsing classic_method instead")
+            self.initialize_parameters_with_classic_method()
+    
     def _scale(self, number_of_neurons, is_output = False):
         if(is_output == True):
             return np.sqrt(1 / number_of_neurons)
