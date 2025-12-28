@@ -1,7 +1,3 @@
-Harika bir iş çıkarmışsın! Yazdığın metni profesyonel, akıcı ve global bir kitleye hitap edecek şekilde İngilizceye çevirdim. Bu versiyonu doğrudan GitHub sayfan için kullanabilirsin:
-
----
-
 # 🚀 ML-Library
 
 ### Hardware-Agnostic Machine Learning Powered by Pure Python
