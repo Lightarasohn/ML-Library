@@ -40,8 +40,7 @@ The library includes all the essential building blocks for designing and trainin
 ---
 
 ## Roadmap
-
-1. **Phase 1 (Current):** Establishing the core mathematical foundation and classification structure in pure Python.
-2. **Phase 2:** Implementing GPU acceleration via PyOpenCL integration.
-3. **Phase 3:** Reducing complexity, simplifying logic, and executing performance optimizations.
-4. **Phase 4:** Releasing a UI based version for end-users.
+**Phase 1 (Current):** Establishing the core mathematical foundation and classification structure in pure Python.
+**Phase 2:** Implementing GPU acceleration via PyOpenCL integration.
+**Phase 3:** Reducing complexity, simplifying logic, and executing performance optimizations.
+**Phase 4:** Releasing a UI based version for end-users.
