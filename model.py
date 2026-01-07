@@ -7,13 +7,11 @@ class Model(ABC):
     _optimizer_: str
     _data_: np.ndarray
     _labels_: np.ndarray
-    _iterations_: int
     _print_range_: int
     _test_data_: np.ndarray
     _test_labels: np.ndarray
     
     def __init__(self, data, labels, initialize_parameters_method, num_of_hidden_layers, output_size, activation_type, task, learning_rate, optimizer, iterations, print_range, test_data, test_labels):
-        self._iterations_ = iterations
         self._print_range_ = print_range
         self._data_ = data
         self._labels_ = labels

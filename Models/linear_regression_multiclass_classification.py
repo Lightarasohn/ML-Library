@@ -6,21 +6,45 @@ from helper_classes import Helper_Classes
 class Linear_Regression_Classification(Model):
     _epochs_: int
     _batch_size_: int
+    _iterations_: int
     
-    def __init__(self, data, labels, initialize_parameters_method, num_of_hidden_layers, output_size, learning_rate, optimizer, iterations, print_range, test_data, test_labels, epochs, batch_size):
-        super().__init__(data, labels, initialize_parameters_method, num_of_hidden_layers, output_size, Helper_Classes.Activation_Type.RELU, Helper_Classes.Task.MULTICLASS, learning_rate, optimizer, iterations, print_range, test_data, test_labels)
+    def __init__(self, data, labels, initialize_parameters_method, num_of_hidden_layers, output_size, learning_rate, optimizer, print_range, test_data, test_labels, iterations=0, epochs=0, batch_size=0):
+        super().__init__(data, labels, initialize_parameters_method, num_of_hidden_layers, output_size, Helper_Classes.Activation_Type.RELU, Helper_Classes.Task.MULTICLASS, learning_rate, optimizer, print_range, test_data, test_labels)
         self._epochs_ = epochs
         self._batch_size_ = batch_size
+        self._iterations_ = iterations
     
     def gradient_descent(self):
         self._ml_.select_initialize_parameters_method()
+        
+        loss_history = []
+        accuracy_history = []
         
         for i in range(self._iterations_):
             A, forward_layers = self._ml_.forward_propagation(self._data_)
             backward_layers = self._ml_.backward_propagation(A, self._labels_, forward_layers)
             self._ml_.update_parameters(backward_layers)
+            
+            loss = self._ml_.loss(A,self._labels_)
+            loss_history.append(loss)
+            accuracy = self._ml_.get_accuracy(self._data_, self._labels_)
+            accuracy_history.append(accuracy)
             if(i % self._print_range_ == 0):
-                print(f"Iteration: {i} | Accuracy: {self._ml_.get_accuracy(self._data_, self._labels_)}")
+                print(f"Iteration: {self._iterations_} | Accuracy: {accuracy} | Loss: {loss}")
+                
+        loss = self._ml_.loss(A,self._labels_)
+        loss_history.append(loss)
+        
+        accuracy = self._ml_.get_accuracy(self._data_, self._labels_)
+        accuracy_history.append(accuracy)
+        print(f"Iteration: {self._iterations_} | Accuracy: {accuracy} | Loss: {loss}")
+        
+        plt.figure()
+        plt.plot(loss_history)
+        plt.title("Training Loss")
+        plt.xlabel("Iterations")
+        plt.ylabel("Loss")
+        plt.show()
     
     def mini_batch_gradient_descent(self):
         m = self._data_.shape[1]
@@ -58,6 +82,15 @@ class Linear_Regression_Classification(Model):
 
             print(f"Epoch {epoch + 1}/{self._epochs_} | Loss: {loss:.4f} | Accuracy: {acc:.4f}")
 
+        A_full, _ = self._ml_.forward_propagation(self._data_)
+        loss = self._ml_.loss(A_full, self._labels_)
+        acc = self._ml_.get_accuracy(self._data_, self._labels_)
+
+        loss_history.append(loss)
+        accuracy_history.append(acc)
+
+        print(f"Epoch {self._epochs_}/{self._epochs_} | Loss: {loss:.4f} | Accuracy: {acc:.4f}")
+        
         # Grafikler
         plt.figure()
         plt.plot(loss_history)
